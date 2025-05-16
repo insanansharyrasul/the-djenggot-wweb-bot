@@ -2,7 +2,7 @@
 node_modules/
 
 # Firebase service account key
-thedjenggot-wweb-firebase-adminsdk-fbsvc-91ccb9f060.json
+firebase-adminsdk.json
 
 # wweb_auth
 .wwebjs_auth

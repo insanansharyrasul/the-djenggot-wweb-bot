@@ -34,7 +34,7 @@ Current Version: 1.0.0
    - Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
    - Set up Firestore database
    - Generate a new private key for Firebase Admin SDK
-   - Save the JSON credentials file in the project root as `thedjenggot-wweb-firebase-adminsdk-fbsvc-91ccb9f060.json` (or update the path in firebase.js)
+   - Save the JSON credentials file in the project root as `firebase-adminsdk.json` (or update the path in firebase.js)
 
 ## Running the Application
 

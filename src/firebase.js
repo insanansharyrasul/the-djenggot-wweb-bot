@@ -2,7 +2,7 @@ const admin = require('firebase-admin');
 const path = require('path');
 
 // Path to service account key file (USE YOUR OWN FILE)
-const serviceAccountPath = path.join(__dirname, '../thedjenggot-wweb-firebase-adminsdk-fbsvc-91ccb9f060.json');
+const serviceAccountPath = path.join(__dirname, '../firebase-adminsdk.json');
 
 let app;
 let db;
