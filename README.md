@@ -66,4 +66,4 @@ To modify or extend the bot functionality:
 
 ## License
 
-ISC
+GNU GPLv3

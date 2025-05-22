@@ -177,9 +177,11 @@ client.on('message', async (message) => {
 
     switch (userState.step) {
         case 'start':
-            await chat.sendMessage('Selamat datang di Bot Pesanan The Djenggot!\n\n' +
-                'Ketik *!status* untuk melihat status pesanan terakhir Anda.\n\n' +
-                'Silakan masukkan nama pemesan:');
+            await chat.sendMessage(
+                'Selamat datang di Bot Pesanan The Djenggot!\n\n' +
+                'Jika baru pertama kali memesan, silahkan langsung tulis nama pemesan\n' +
+                'Ketik *!status* untuk melihat status pesanan terakhir Anda jika anda sudah memesan sebelumnya.\n\n'
+                );
             userState.step = 'nama';
             break;
 
