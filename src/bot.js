@@ -162,25 +162,49 @@ client.on('message', async (message) => {
         }
     }
 
-    if (!userStates.has(userId)) {
-        userStates.set(userId, {
-            step: 'start',
-            orderData: {
-                nama: '',
-                makanan: '',
-                pembayaran: '',
-            }
-        });
+    // Command to start the ordering process
+    if (messageText === '!pesan') {
+        if (!userStates.has(userId)) {
+            userStates.set(userId, {
+                step: 'start',
+                orderData: {
+                    nama: '',
+                    makanan: '',
+                    pembayaran: '',
+                }
+            });
+        }
+
+        const userState = userStates.get(userId);
+        userState.step = 'start';
+
+        await chat.sendMessage('Selamat datang di Bot Pesanan The Djenggot!\n\n' +
+            'Silakan masukkan nama pemesan:');
+        userState.step = 'nama';
+        return;
+    }
+
+    if (!userStates.has(userId) || userStates.get(userId).step === 'start') {
+        await chat.sendMessage('Selamat datang di Bot Pesanan The Djenggot!\n\n' +
+            'Ketik *!pesan* untuk memulai pemesanan.\n' +
+            'Ketik *!status* untuk melihat status pesanan terakhir Anda.');
+        return;
     }
 
     const userState = userStates.get(userId);
 
+    if (messageText.startsWith('!') && userState.step !== 'start') {
+        if (messageText === '!pesan' || messageText === '!status') {
+            return;
+        } else {
+            await chat.sendMessage('Maaf, Anda sedang dalam proses pemesanan. Silakan selesaikan pemesanan terlebih dahulu atau ketik *!cancel* untuk membatalkan.');
+            return;
+        }
+    }
+
     switch (userState.step) {
         case 'start':
-            await chat.sendMessage('Selamat datang di Bot Pesanan The Djenggot!\n\n' +
-                'Ketik *!status* untuk melihat status pesanan terakhir Anda.\n\n' +
-                'Silakan masukkan nama pemesan:');
-            userState.step = 'nama';
+            await chat.sendMessage('Maaf saya masih belum memiliki fitur itu.');
             break;
 
         case 'nama':
@@ -225,6 +249,10 @@ client.on('message', async (message) => {
             }
 
             userStates.delete(userId);
+            break;
+
+        default:
+            await chat.sendMessage('Maaf saya masih belum memiliki fitur itu.');
             break;
     }
 });
