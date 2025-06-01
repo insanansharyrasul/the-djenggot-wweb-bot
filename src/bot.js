@@ -107,6 +107,40 @@ client.on('qr', (qr) => {
     console.log('QR Code generated. Scan it with your WhatsApp app.');
 });
 
+client.on('disconnected', (reason) => {
+    console.log('Client was logged out:', reason);
+    setTimeout(() => {
+        console.log('Attempting to reconnect...');
+        client.initialize();
+    }, 5000);
+});
+
+client.on('auth_failure', (session) => {
+    console.log('Authentication failed:', session);
+});
+
+client.on('authenticated', () => {
+    console.log('Client authenticated successfully');
+});
+
+client.on('loading_screen', (percent, message) => {
+    process.stdout.write(`\rLoading: ${percent}% - ${message}`);
+    if (percent === 100) {
+        console.log(''); // Add final newline
+    }
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+});
+
+process.on('uncaughtException', (error) => {
+    console.error('Uncaught Exception:', error);
+    client.destroy().then(() => {
+        process.exit(1);
+    });
+});
+
 client.on('ready', () => {
     console.log('Client is ready!');
     setupOrderStatusListeners();
